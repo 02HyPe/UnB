@@ -1,7 +1,12 @@
 api url :- https://unb.onrender.com
 
 Routes:- 
-- /user/allUser - to get all user list-/allBook - get all books-/transaction/allTransaction - gets all transaction
+- /user/allUser - to get all user list
+  
+-/allBook - get all books
+
+-/transaction/allTransaction - gets all transaction
+
 -/book - to search for a book term (input- bookName(String))
 
 -/price - price range filter(input- LowerRange and upperRange (number))
