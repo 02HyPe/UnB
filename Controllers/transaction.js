@@ -49,6 +49,7 @@ const returnUpdate = async (req, res) => {
     try {
         const body = req.body;
         const bookName = body.bookName;
+        const userName = body.userName;
         const dateReturned = new Date(body.dateReturned);
 
         
@@ -60,6 +61,7 @@ const returnUpdate = async (req, res) => {
 
         const transactionDtls = await Transaction.find({ 
             bookName: { $regex: bookName, $options: 'i' },
+            userName: userName,
             returnedOn: null 
         });
 

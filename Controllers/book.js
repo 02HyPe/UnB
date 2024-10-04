@@ -1,12 +1,23 @@
 const Book = require(`../config/mongoose.model`).bookModel;
 
+
+const allBook = async(req, res)=>{
+    try{
+        const books = await Book.find();
+        return res.status(200).json({books})
+    }catch(err){
+        console.log(err)
+        return res.status(500).json({error: err});
+    }
+}
+
 const bookSearch = async (req, res)=>{
     try{
         const body = req.body;
         if (!body.term) {
             return res.status(400).json({ message: 'Search term is required' });
         }
-        const books = await Book.find({ bookName: { $regex: body.term, $options: 'i' } });
+        const books = await Book.find({ bookName: { $regex: body.bookName, $options: 'i' } });
 
         return res.status(200).json({
             success: true,
@@ -53,7 +64,7 @@ const fullBookSearch = async (req, res) => {
 
         const query = {
             rentPerDay: { $gte: body.lowerRange, $lte: body.upperRange },
-            bookName: { $regex: body.term, $options: 'i' },
+            bookName: { $regex: body.bookName, $options: 'i' },
             category: { $regex: body.category, $options: 'i' }
         };
         
@@ -75,5 +86,6 @@ const fullBookSearch = async (req, res) => {
 module.exports = { 
     bookSearch:bookSearch,
     rentFilter:rentFilter,
-    fullBookSearch:fullBookSearch
+    fullBookSearch:fullBookSearch,
+    allBook:allBook
 }
